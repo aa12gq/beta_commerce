@@ -11,5 +11,6 @@ class Global {
     await Storage().init();
 
     Get.put<ConfigService>(ConfigService());
+    Get.put<WPHttpService>(WPHttpService());
   }
 }
