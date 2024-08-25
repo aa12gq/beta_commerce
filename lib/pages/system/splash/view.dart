@@ -1,3 +1,4 @@
+import 'package:beta_commerce/common/index.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,8 +9,8 @@ class SplashPage extends GetView<SplashController> {
 
   // 主视图
   Widget _buildView() {
-    return const Center(
-      child: Text("SplashPage"),
+    return Center(
+      child: Text("SplashPage - ${ConfigService.to.version}"),
     );
   }
 
