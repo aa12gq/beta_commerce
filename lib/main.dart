@@ -17,9 +17,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      // 样式
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+
+      // 主题
+      themeMode:
+          ConfigService.to.isDarkModel ? ThemeMode.dark : ThemeMode.light,
 
       // 路由
       initialRoute: RouteNames.stylesStylesIndex,
