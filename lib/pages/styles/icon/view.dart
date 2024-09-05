@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../common/index.dart';
 import 'index.dart';
 
 class IconPage extends GetView<IconController> {
@@ -8,8 +9,21 @@ class IconPage extends GetView<IconController> {
 
   // 主视图
   Widget _buildView() {
-    return const Center(
-      child: Text("IconPage"),
+    return ListView(
+      children: [
+        ListTile(
+          leading: IconWidget.icon(Icons.home),
+          title: const TextWidget.body1("IconWidget.icon"),
+        ),
+        ListTile(
+          leading: IconWidget.image(AssetsImages.defaultPng),
+          title: const TextWidget.body1("IconWidget.image"),
+        ),
+        ListTile(
+          leading: IconWidget.svg(AssetsSvgs.cHomeSvg),
+          title: const TextWidget.body1("IconWidget.svg"),
+        ),
+      ],
     );
   }
 
