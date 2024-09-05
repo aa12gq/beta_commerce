@@ -3,11 +3,16 @@ import 'package:get/get.dart';
 class InputsController extends GetxController {
   InputsController();
 
+  bool checkVal = true;
+
   _initData() {
     update(["inputs"]);
   }
 
-  void onTap() {}
+  void onCheckBox(bool val) {
+    checkVal = val;
+    update(["inputs"]);
+  }
 
   // @override
   // void onInit() {
@@ -23,5 +28,10 @@ class InputsController extends GetxController {
   // @override
   // void onClose() {
   //   super.onClose();
+  // }
+
+  // @override
+  // void dispose() {
+  //   super.dispose();
   // }
 }
