@@ -10,6 +10,10 @@ class StylesIndexPage extends GetView<StylesIndexController> {
   // 主视图
   Widget _buildView() {
     return Column(children: [
+      ListTile(
+        onTap: () => Get.toNamed(RouteNames.stylesText),
+        title: const Text("Text 文本"),
+      ),
       // 多语言
       // ListTile(
       //   onTap: controller.onLanguageSelected,
@@ -19,10 +23,9 @@ class StylesIndexPage extends GetView<StylesIndexController> {
       // ),
       // 主题
       ListTile(
-          onTap: controller.onThemeSelected,
-          title:
-              Text("主题 : ${ConfigService.to.isDarkModel ? "Dark" : "Light"}"),
-        ),
+        onTap: controller.onThemeSelected,
+        title: Text("主题 : ${ConfigService.to.isDarkModel ? "Dark" : "Light"}"),
+      ),
     ]);
   }
 
@@ -33,7 +36,9 @@ class StylesIndexPage extends GetView<StylesIndexController> {
       id: "styles_index",
       builder: (_) {
         return Scaffold(
-          appBar: AppBar(title: Text(LocaleKeys.stylesTitle.tr),),
+          appBar: AppBar(
+            title: Text(LocaleKeys.stylesTitle.tr),
+          ),
           body: SafeArea(
             child: _buildView(),
           ),

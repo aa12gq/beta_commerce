@@ -1,3 +1,4 @@
+import 'package:beta_commerce/common/index.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,8 +9,15 @@ class TextPage extends GetView<TextController> {
 
   // 主视图
   Widget _buildView() {
-    return const Center(
-      child: Text("TextPage"),
+    return ListView(
+      children: const [
+        ListTile(title: TextWidget.title1("title1")),
+        ListTile(title: TextWidget.title2("title2")),
+        ListTile(title: TextWidget.title3("title3")),
+        ListTile(title: TextWidget.body1("body1")),
+        ListTile(title: TextWidget.body2("body2")),
+        ListTile(title: TextWidget.body3("body3")),
+      ],
     );
   }
 
