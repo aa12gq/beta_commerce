@@ -149,5 +149,9 @@ class RoutePages {
       name: RouteNames.systemUserAgreement,
       page: () => const UserAgreementPage(),
     ),
+    GetPage(
+      name: RouteNames.systemWelcome,
+      page: () => const WelcomePage(),
+    ),
   ];
 }

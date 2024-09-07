@@ -46,6 +46,7 @@ dependencies:
   extended_image: ^8.2.1
   flutter_screenutil: ^5.9.3
   flutter_native_splash: ^2.2.16
+  carousel_slider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
