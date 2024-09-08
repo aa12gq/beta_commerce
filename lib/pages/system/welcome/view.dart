@@ -16,8 +16,27 @@ class WelcomePage extends GetView<WelcomeController> {
           ? const SizedBox()
           : WelcomeSliderWidget(
               controller.items!,
-              onPageChanged: (index) {},
+              onPageChanged: controller.onPageChanged,
             ),
+    );
+  }
+
+  // 控制栏
+  Widget _buildBar() {
+    return GetBuilder<WelcomeController>(
+      id: "bar",
+      init: controller,
+      builder: (controller) {
+        return <Widget>[
+          // 指示标
+          SliderIndicatorWidget(
+            length: 3,
+            currentIndex: controller.currentIndex,
+          ),
+        ].toRow(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        );
+      },
     );
   }
 
@@ -27,12 +46,14 @@ class WelcomePage extends GetView<WelcomeController> {
       // slider切换
       _buildSlider(),
       // 控制栏
+      _buildBar(),
     ]
         .toColumn(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-        )
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+    )
         .paddingAll(AppSpace.page);
   }
+
 
   @override
   Widget build(BuildContext context) {
