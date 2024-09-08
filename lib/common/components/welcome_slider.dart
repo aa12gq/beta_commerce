@@ -1,9 +1,8 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider/carousel_slider.dart' as slider;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../index.dart';
-import '../models/welcome_model.dart';
 import '../widgets/image.dart';
 
 /// 欢迎 slider
@@ -15,7 +14,7 @@ class WelcomeSliderWidget extends StatelessWidget {
   final Function(int) onPageChanged;
 
   /// 控制器
-  final CarouselSliderController? carouselController;
+  final slider.CarouselSliderController? carouselController;
 
   const WelcomeSliderWidget(
     this.items, {
@@ -61,9 +60,9 @@ class WelcomeSliderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider(
+    return slider.CarouselSlider(
       carouselController: carouselController, // 确保类型匹配
-      options: CarouselOptions(
+      options: slider.CarouselOptions(
         height: 500.w,
         viewportFraction: 1, // 充满
         enlargeCenterPage: false, // 动画 封面效果

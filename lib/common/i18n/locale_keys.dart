@@ -25,5 +25,4 @@ class LocaleKeys {
   static const welcomeSkip = 'welcome_skip';
   static const welcomeNext = 'welcome_next';
   static const welcomeStart = 'welcome_start';
-
 }
