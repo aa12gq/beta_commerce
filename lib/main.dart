@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
 
           // builder
           builder: (context, widget) {
+            widget = EasyLoading.init()(context, widget);
             // 使用 textScaler 进行文本缩放
             return MediaQuery(
               data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
