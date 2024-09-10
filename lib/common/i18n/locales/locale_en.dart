@@ -31,4 +31,28 @@ Map<String, String> localeEn = {
   LocaleKeys.welcomeNext: 'Next',
   LocaleKeys.welcomeStart: 'Get Started',
 
+  // 登录、注册 - 通用
+  LocaleKeys.loginForgotPassword: 'Forgot Password?',
+  LocaleKeys.loginSignIn: 'Sign In',
+  LocaleKeys.loginSignUp: 'Sign Up',
+  LocaleKeys.loginOrText: '- OR -',
+
+  // 注册 - new user
+  LocaleKeys.registerTitle: 'Register',
+  LocaleKeys.registerDesc: 'Sign up to continue',
+  LocaleKeys.registerFormName: 'User Name',
+  LocaleKeys.registerFormEmail: 'Email',
+  LocaleKeys.registerFormPhoneNumber: 'Phone number',
+  LocaleKeys.registerFormPassword: 'Password',
+  LocaleKeys.registerFormFirstName: 'First name',
+  LocaleKeys.registerFormLastName: 'Last name',
+  LocaleKeys.registerHaveAccount: 'Already have an account?',
+
+  // 验证提示
+  LocaleKeys.validatorRequired: 'The field is obligatory',
+  LocaleKeys.validatorEmail: 'The field must be an email',
+  LocaleKeys.validatorMin: 'Length cannot be less than @size',
+  LocaleKeys.validatorMax: 'Length cannot be greater than @size',
+  LocaleKeys.validatorPassword:
+  'password must have between @min and @max digits',
 };

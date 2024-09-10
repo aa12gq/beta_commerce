@@ -47,6 +47,11 @@ class StylesIndexPage extends GetView<StylesIndexController> {
         onTap: controller.onThemeSelected,
         title: Text("主题 : ${ConfigService.to.isDarkModel ? "Dark" : "Light"}"),
       ),
+      // form 表单
+      ListTile(
+        onTap: () => Get.toNamed(RouteNames.stylesTextForm),
+        title: const TextWidget.body1("form 表单"),
+      ),
     ]);
   }
 
