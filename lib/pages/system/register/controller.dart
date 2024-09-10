@@ -48,10 +48,10 @@ class RegisterController extends GetxController {
   }
 
 
-
   // 登录
-  void onSignIn() {}
-
+  void onSignIn() {
+    Get.offNamed(RouteNames.systemLogin);
+  }
 
   void onTap() {}
 

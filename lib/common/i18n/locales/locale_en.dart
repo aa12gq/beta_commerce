@@ -61,4 +61,11 @@ Map<String, String> localeEn = {
   LocaleKeys.registerPinDesc: 'we will send you a Pin to continue your account',
   LocaleKeys.registerPinFormTip: 'Pin',
   LocaleKeys.registerPinButton: 'Submit',
+
+  // 登录 - back login
+  LocaleKeys.loginBackTitle: 'Welcome login!',
+  LocaleKeys.loginBackDesc: 'Sign in to continue',
+  LocaleKeys.loginBackFieldEmail: 'Name',
+  LocaleKeys.loginBackFieldPassword: 'Password',
+
 };
