@@ -122,22 +122,34 @@ class RequestInterceptors extends Interceptor {
     }
   }
 
+  // 退出并重新登录
+  Future<void> _errorNoAuthLogout() async {
+    // await UserService.to.logout();
+    Get.toNamed(RouteNames.systemLogin);
+  }
+
   @override
-  Future<void> onError(
-      DioException err, ErrorInterceptorHandler handler) async {
-    final exception = HttpException(err.message ?? '');
-
-    DioException newError = DioException(
-      requestOptions: err.requestOptions,
-      response: err.response,
-      type: err.type,
-      error: exception, // 将新错误信息传递给新的 DioException
-    );
-
+  Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
+    final exception = HttpException(err.message ?? "未知错误");
     switch (err.type) {
-      case DioExceptionType.badResponse: // 服务端自定义错误体处理
+      case DioExceptionType.badResponse:
         {
-          // 处理响应相关的错误
+          final response = err.response;
+          final errorMessage = ErrorMessageModel.fromJson(response?.data);
+          switch (errorMessage.statusCode) {
+            case 401:
+              _errorNoAuthLogout();
+              break;
+            case 404:
+              break;
+            case 500:
+              break;
+            case 502:
+              break;
+            default:
+              break;
+          }
+          Loading.error(errorMessage.message);
         }
         break;
       case DioExceptionType.unknown:
@@ -150,6 +162,11 @@ class RequestInterceptors extends Interceptor {
         break;
     }
 
-    handler.next(newError);
+    handler.next(DioException(
+      requestOptions: err.requestOptions,
+      response: err.response,
+      type: err.type,
+      error: exception,
+    ));
   }
 }
