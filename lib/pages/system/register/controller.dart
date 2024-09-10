@@ -1,3 +1,4 @@
+import 'package:beta_commerce/common/index.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,7 +27,11 @@ class RegisterController extends GetxController {
   }
 
   // 注册
-  void onSignUp() {}
+  void onSignUp() {
+    if((formKey.currentState as FormState).validate()) {
+      Get.toNamed(RouteNames.systemRegisterPin);
+    }
+  }
 
   // 登录
   void onSignIn() {}

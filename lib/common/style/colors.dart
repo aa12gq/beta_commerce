@@ -76,6 +76,8 @@ class AppColors {
 
   static Color get surfaceContainerHighest => Get.theme.colorScheme.surfaceContainerHighest;
 
+  static Color get surfaceVariant => Get.theme.colorScheme.surfaceVariant;
+
   static Color get tertiary => Get.theme.colorScheme.tertiary;
 
   static Color get tertiaryContainer => Get.theme.colorScheme.tertiaryContainer;

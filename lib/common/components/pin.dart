@@ -48,7 +48,7 @@ class PinPutWidget extends StatelessWidget {
     // 完成
     final submittedPinTheme = defaultPinTheme.copyWith(
       decoration: defaultPinTheme.decoration?.copyWith(
-        color: AppColors.surfaceContainerHighest,
+        color: AppColors.surfaceVariant,
       ),
     );
 
