@@ -3,6 +3,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 
 import 'common/index.dart';
+import 'common/services/user.dart';
 
 class Global {
   static Future<void> init() async {
@@ -14,6 +15,7 @@ class Global {
 
     Get.put<ConfigService>(ConfigService());
     Get.put<WPHttpService>(WPHttpService());
+    Get.put<UserService>(UserService());
 
     Loading();
   }

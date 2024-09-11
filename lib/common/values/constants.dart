@@ -12,4 +12,7 @@ class Constants {
   // AES
   static const aesKey = 'aH5aH5bG0dC6aA3oN0cK4aU5jU6aK2lN';
   static const aesIV = 'hK6eB4aE1aF3gH5q';
+
+  static const storageToken = 'token';// 登录成功后 token
+  static const storageProfile = 'profile';// 用户资料缓存
 }

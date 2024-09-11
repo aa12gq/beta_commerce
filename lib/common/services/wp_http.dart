@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:beta_commerce/common/services/user.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' hide Response, FormData, MultipartFile;
 
@@ -94,16 +95,20 @@ class WPHttpService extends GetxService {
   }
 }
 
-/// 拦截器
+/// 拦截
 class RequestInterceptors extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     // super.onRequest(options, handler);
-    // if (UserService.to.hasToken) {
-    //   options.headers['Authorization'] = 'Bearer ${UserService.to.token}';
-    // }
+
+    // http header 头加入 Authorization
+    if (UserService.to.hasToken) {
+      options.headers['Authorization'] = 'Bearer ${UserService.to.token}';
+    }
+
     return handler.next(options);
   }
+
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
@@ -124,7 +129,7 @@ class RequestInterceptors extends Interceptor {
 
   // 退出并重新登录
   Future<void> _errorNoAuthLogout() async {
-    // await UserService.to.logout();
+    await UserService.to.logout();
     Get.toNamed(RouteNames.systemLogin);
   }
 
@@ -138,6 +143,7 @@ class RequestInterceptors extends Interceptor {
           final errorMessage = ErrorMessageModel.fromJson(response?.data);
           switch (errorMessage.statusCode) {
             case 401:
+            // 注销 并跳转到登录页面
               _errorNoAuthLogout();
               break;
             case 404:
@@ -150,6 +156,7 @@ class RequestInterceptors extends Interceptor {
               break;
           }
           Loading.error(errorMessage.message);
+          print(errorMessage.message);
         }
         break;
       case DioExceptionType.unknown:

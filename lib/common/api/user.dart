@@ -1,3 +1,5 @@
+import '../index.dart';
+import '../models/request/user_login.dart';
 import '../models/request/user_register_req.dart';
 import '../services/wp_http.dart';
 
@@ -14,5 +16,22 @@ class UserApi {
       return true;
     }
     return false;
+  }
+
+  /// 登录
+  static Future<UserTokenModel> login(UserLoginReq? req) async {
+    var res = await WPHttpService.to.post(
+      '/users/login',
+      data: req,
+    );
+    return UserTokenModel.fromJson(res.data);
+  }
+
+  /// Profile
+  static Future<UserProfileModel> profile() async {
+    var res = await WPHttpService.to.get(
+      '/users/me',
+    );
+    return UserProfileModel.fromJson(res.data);
   }
 }

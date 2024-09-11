@@ -7,7 +7,7 @@ import '../../../common/services/config.dart';
 class SplashController extends GetxController {
   SplashController();
 
-  _jumpToPage() {
+  void _jumpToPage() {
     Future.delayed(const Duration(seconds: 1)).then((_) {
       if (ConfigService.to.isAlreadyOpen) {
         Get.offAllNamed(RouteNames.main);
@@ -16,6 +16,7 @@ class SplashController extends GetxController {
       }
     });
   }
+
 
   // initData() {
   //   update(["splash"]);
@@ -28,14 +29,16 @@ class SplashController extends GetxController {
   //   super.onInit();
   // }
 
-    @override
-    void onReady() {
-      super.onReady();
-      FlutterNativeSplash.remove(); // 删除设备启动图
-      // _initData(); // 初始数据
-      _jumpToPage(); // 跳转界面
-    }
+  @override
+  void onReady() {
+    super.onReady();
 
+    // 删除设备启动图
+    FlutterNativeSplash.remove();
+
+    // 去首页
+    _jumpToPage();
+  }
 
 // @override
   // void onClose() {
