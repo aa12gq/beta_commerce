@@ -153,5 +153,10 @@ class RoutePages {
       name: RouteNames.systemWelcome,
       page: () => const WelcomePage(),
     ),
+    GetPage(
+      name: RouteNames.main,
+      page: () => const MainPage(),
+      binding: MainBinding(),
+    ),
   ];
 }

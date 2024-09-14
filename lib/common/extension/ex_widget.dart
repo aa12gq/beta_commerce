@@ -35,6 +35,9 @@ extension ExWidget on Widget {
   /// 对齐 底部
   Widget alignBottom() => align(Alignment.bottomCenter);
 
+  /// 转 Center
+  Widget toCenter() => Center(child: this);
+
   // 比例布局
   Widget aspectRatio({
     Key? key,

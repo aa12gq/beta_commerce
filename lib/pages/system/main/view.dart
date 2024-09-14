@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../index.dart';
+
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
@@ -71,20 +73,20 @@ class _MainViewGetX extends GetView<ctl.MainController> {
                   icon: AssetsSvgs.navProfileSvg,
                 ),
               ],
-              onTap: controller.onJumpToPage, // 切换tab事件
+              onTap: controller.onJumpToPage,
             );
           },
         ),
         // 内容页
         body: PageView(
-          physics: const NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(), // 禁止滑动，不响应用户的滚动
           controller: controller.pageController,
           onPageChanged: controller.onIndexChanged,
           children: const [
-            Text("1"),
-            Text("2"),
-            Text("3"),
-            Text("4"),
+            HomePage(),
+            CartIndexPage(),
+            MsgIndexPage(),
+            MyIndexPage(),
           ],
         ),
       ),
@@ -96,14 +98,7 @@ class _MainViewGetX extends GetView<ctl.MainController> {
     return GetBuilder<ctl.MainController>(
       init: ctl.MainController(),
       id: "main",
-      builder: (_) {
-        return Scaffold(
-          appBar: AppBar(title: const Text("main")),
-          body: SafeArea(
-            child: _buildView(context),
-          ),
-        );
-      },
+      builder: (_) => _buildView(context),
     );
   }
 }
