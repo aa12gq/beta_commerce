@@ -1,5 +1,7 @@
+import 'package:beta_commerce/common/api/product.dart';
 import 'package:beta_commerce/common/api/system.dart';
 import 'package:beta_commerce/common/index.dart';
+import 'package:beta_commerce/common/models/request/product.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -17,10 +19,23 @@ class HomeController extends GetxController {
     update(["home_banner"]);
   }
 
+  // 分类导航数据
+  List<CategoryModel> categoryItems = [];
+  // 推荐商品列表数据
+  List<ProductModel> flashShellProductList = [];
+  // 最新商品列表数据
+  List<ProductModel> newProductProductList = [];
+
   _initData() async {
-    // 首页
     // banner
     bannerItems = await SystemApi.banners();
+    // 分类
+    categoryItems = await ProductApi.categories();
+    // 推荐商品
+    flashShellProductList =
+    await ProductApi.products(ProductsReq(featured: true));
+    // 新商品
+    newProductProductList = await ProductApi.products(ProductsReq());
 
     update(["home"]);
   }
@@ -28,6 +43,9 @@ class HomeController extends GetxController {
 
   // 导航点击事件
   void onAppBarTap() {}
+
+  // 分类点击事件
+  void onCategoryTap(int categoryId) {}
 
   // @override
   // void onInit() {
