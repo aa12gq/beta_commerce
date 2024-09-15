@@ -75,5 +75,11 @@ Map<String, String> localeZh = {
 
   // 退出提示
   LocaleKeys.exitMessage: '再次点击退出',
+
+  // 商品 - 首页
+  LocaleKeys.gHomeSearch: '搜索商品',
+  LocaleKeys.gHomeFlashSell: '热卖商品',
+  LocaleKeys.gHomeNewProduct: '新上商品',
+  LocaleKeys.gHomeMore: '所有',
 };
 

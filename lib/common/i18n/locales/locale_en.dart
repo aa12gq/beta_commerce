@@ -76,4 +76,10 @@ Map<String, String> localeEn = {
 
   // 退出提示
   LocaleKeys.exitMessage: 'Press again to exit',
+
+  // 商品 - 首页
+  LocaleKeys.gHomeSearch: 'Search Product',
+  LocaleKeys.gHomeFlashSell: 'Flash Sell',
+  LocaleKeys.gHomeNewProduct: 'New Product',
+  LocaleKeys.gHomeMore: 'ALL',
 };

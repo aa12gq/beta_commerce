@@ -909,7 +909,7 @@ extension ExWidget on Widget {
         child: this,
       );
 
-  /// SliverToBoxAdapter
+  /// SliverToBoxAdapter 适配器
   Widget sliverToBoxAdapter({
     Key? key,
   }) =>

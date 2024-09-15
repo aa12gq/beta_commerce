@@ -70,4 +70,10 @@ class LocaleKeys {
 
   // 退出提示
   static const exitMessage = 'exit_message';
+
+  // 商品 - 首页
+  static const gHomeSearch = 'goods_home_search';
+  static const gHomeFlashSell = 'goods_home_flash_shell';
+  static const gHomeNewProduct = 'goods_home_new_product';
+  static const gHomeMore = 'goods_home_more';
 }
