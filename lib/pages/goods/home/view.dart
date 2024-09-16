@@ -1,5 +1,6 @@
 import 'package:beta_commerce/common/components/carousel.dart';
 import 'package:beta_commerce/common/components/category_item.dart';
+import 'package:beta_commerce/common/components/placehold.dart';
 import 'package:beta_commerce/common/components/product_item.dart';
 import 'package:beta_commerce/common/components/refresher.dart';
 import 'package:beta_commerce/common/index.dart';
@@ -138,7 +139,12 @@ class HomePage extends GetView<HomeController> {
 
   // 主视图
   Widget _buildView() {
-    return CustomScrollView(
+    return controller.flashShellProductList.isEmpty ||
+        controller.newProductProductList.isEmpty
+        ?
+    // 占位图
+    const PlaceholdWidget()
+        : CustomScrollView(
       slivers: [
         // 轮播广告
         _buildBanner(),
@@ -155,6 +161,8 @@ class HomePage extends GetView<HomeController> {
           onTap: () => controller.onAllTap(true),
         ).sliverToBoxAdapter().sliverPaddingHorizontal(AppSpace.page)
             : const SliverToBoxAdapter(),
+
+        _buildFlashSell(),
         // 最新商品
         // 栏位标题
         controller.newProductProductList.isNotEmpty
@@ -163,6 +171,7 @@ class HomePage extends GetView<HomeController> {
           onTap: () => controller.onAllTap(false),
         ).sliverToBoxAdapter().sliverPaddingHorizontal(AppSpace.page)
             : const SliverToBoxAdapter(),
+
         // 列表
         _buildNewSell(),
 
@@ -177,7 +186,6 @@ class HomePage extends GetView<HomeController> {
       ],
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
