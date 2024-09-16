@@ -1,9 +1,13 @@
 import 'package:beta_commerce/common/components/carousel.dart';
 import 'package:beta_commerce/common/components/category_item.dart';
+import 'package:beta_commerce/common/components/product_item.dart';
+import 'package:beta_commerce/common/components/refresher.dart';
 import 'package:beta_commerce/common/index.dart';
+import 'package:beta_commerce/pages/goods/home/widgets/list_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'index.dart';
 
@@ -78,20 +82,59 @@ class HomePage extends GetView<HomeController> {
         .sliverPaddingHorizontal(AppSpace.page);
   }
 
-  // Flash Sell
+  // 推荐商品
   Widget _buildFlashSell() {
-    return Container()
+    return <Widget>[
+      for (var i = 0; i < controller.flashShellProductList.length; i++)
+        ProductItemWidget(
+          controller.flashShellProductList[i],
+          imgHeight: 117.w,
+          imgWidth: 120.w,
+        )
+            .constrained(
+          width: 120.w,
+          height: 170.w,
+        )
+            .paddingRight(AppSpace.listItem)
+    ]
+        .toListView(
+      scrollDirection: Axis.horizontal,
+    )
+        .height(170.w)
+        .paddingBottom(AppSpace.listRow)
         .sliverToBoxAdapter()
         .sliverPaddingHorizontal(AppSpace.page);
   }
 
-  // New Sell
+
+  // 新商品
   Widget _buildNewSell() {
-    return Container()
-        .sliverToBoxAdapter()
-        .sliverPaddingHorizontal(AppSpace.page);
+    return GetBuilder<HomeController>(
+      id: "home_news_sell",
+      builder: (_) {
+        return SliverGrid(
+          delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int position) {
+              var product = controller.newProductProductList[position];
+              return ProductItemWidget(
+                product,
+                imgHeight: 170.w,
+              );
+            },
+            childCount: controller.newProductProductList.length,
+          ),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisSpacing: AppSpace.listRow,
+            crossAxisSpacing: AppSpace.listItem,
+            childAspectRatio: 0.8,
+          ),
+        )
+            .sliverPadding(bottom: AppSpace.page)
+            .sliverPaddingHorizontal(AppSpace.page);
+      },
+    );
   }
-
 
   // 主视图
   Widget _buildView() {
@@ -103,14 +146,25 @@ class HomePage extends GetView<HomeController> {
         // 分类导航
         _buildCategories(),
 
-        // Flash Sell
-        // title
-        Text(LocaleKeys.gHomeFlashSell.tr)
-            .sliverToBoxAdapter()
-            .sliverPaddingHorizontal(AppSpace.page),
-
-        // list
-        _buildFlashSell(),
+        // 推荐商品
+        // 栏位标题
+        controller.flashShellProductList.isNotEmpty
+            ? BuildListTitle(
+          title: LocaleKeys.gHomeFlashSell.tr,
+          subTitle: "03. 30. 30",
+          onTap: () => controller.onAllTap(true),
+        ).sliverToBoxAdapter().sliverPaddingHorizontal(AppSpace.page)
+            : const SliverToBoxAdapter(),
+        // 最新商品
+        // 栏位标题
+        controller.newProductProductList.isNotEmpty
+            ? BuildListTitle(
+          title: LocaleKeys.gHomeNewProduct.tr,
+          onTap: () => controller.onAllTap(false),
+        ).sliverToBoxAdapter().sliverPaddingHorizontal(AppSpace.page)
+            : const SliverToBoxAdapter(),
+        // 列表
+        _buildNewSell(),
 
         // new product
         // title
@@ -133,7 +187,14 @@ class HomePage extends GetView<HomeController> {
       builder: (_) {
         return Scaffold(
           appBar: _buildAppBar(),
-          body: _buildView(),
+          body: SmartRefresher(
+            controller: controller.refreshController, // 刷新控制器
+            enablePullUp: true, // 启用上拉加载
+            onRefresh: controller.onRefresh, // 下拉刷新回调
+            onLoading: controller.onLoading, // 上拉加载回调
+            footer: const SmartRefresherFooterWidget(), // 底部加载更多
+            child: _buildView(),
+          ),
         );
       },
     );

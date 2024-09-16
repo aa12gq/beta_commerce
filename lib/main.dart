@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'common/index.dart';
 import 'global.dart';
@@ -21,7 +22,14 @@ class MyApp extends StatelessWidget {
       splitScreenMode: false, // 支持分屏尺寸
       minTextAdapt: false, // 是否根据宽度/高度中的最小值适配文字
       builder: (context, child) {
-        return GetMaterialApp(
+        return RefreshConfiguration(
+          headerBuilder: () => const ClassicHeader(), // 自定义刷新头部
+          footerBuilder: () => const ClassicFooter(), // 自定义刷新尾部
+          hideFooterWhenNotFull: true, // 当列表不满一页时,是否隐藏刷新尾部
+          headerTriggerDistance: 80, // 触发刷新的距离
+          maxOverScrollExtent: 100, // 最大的拖动距离
+          footerTriggerDistance: 150, // 触发加载的距离
+          child: GetMaterialApp(
           title: 'Flutter Demo',
 
           // 样式
@@ -50,6 +58,7 @@ class MyApp extends StatelessWidget {
           },
 
           debugShowCheckedModeBanner: false,
+        ),
         );
       },
     );
