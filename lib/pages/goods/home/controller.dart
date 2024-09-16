@@ -55,6 +55,7 @@ class HomeController extends GetxController {
     Storage().setJson(Constants.storageHomeCategories, categoryItems);
     Storage().setJson(Constants.storageHomeFlashSell, flashShellProductList);
     Storage().setJson(Constants.storageHomeNewSell, newProductProductList);
+    Storage().setJson(Constants.storageProductsCategories, categoryItems);
 
     // 模拟网络延迟 1 秒
     await Future.delayed(const Duration(seconds: 1));
@@ -172,7 +173,14 @@ class HomeController extends GetxController {
   void onAppBarTap() {}
 
   // 分类点击事件
-  void onCategoryTap(int categoryId) {}
+  void onCategoryTap(int categoryId) {
+    Get.toNamed(
+      RouteNames.goodsCategory,
+      arguments: {
+        "id": categoryId,
+      },
+    );
+  }
 
   // ALL 点击事件
   void onAllTap(bool featured) {
