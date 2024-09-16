@@ -1,6 +1,9 @@
 import 'package:beta_commerce/common/components/appbar.dart';
+import 'package:beta_commerce/common/components/carousel.dart';
+import 'package:beta_commerce/common/components/placehold.dart';
 import 'package:beta_commerce/common/index.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'index.dart';
@@ -43,7 +46,27 @@ class _ProductDetailsViewGetX extends GetView<ProductDetailsController> {
 
   // 滚动图
   Widget _buildBanner() {
-    return const Text("滚动图");
+    return GetBuilder<ProductDetailsController>(
+        id: "product_banner",
+        tag: tag,
+        builder: (_) {
+          return CarouselWidget(
+            // 图片列表
+            items: controller.bannerItems,
+            // 当前索引
+            currentIndex: controller.bannerCurrentIndex,
+            // 切换回调
+            onPageChanged: controller.onChangeBanner,
+            // 高度
+            height: 190.w,
+            // 指示器圆点
+            indicatorCircle: false,
+            // 指示器位置
+            indicatorAlignment: MainAxisAlignment.start,
+            // 指示器颜色
+            indicatorColor: AppColors.highlight,
+          );
+        }).backgroundColor(AppColors.surfaceVariant);
   }
 
   // 商品标题
@@ -63,22 +86,24 @@ class _ProductDetailsViewGetX extends GetView<ProductDetailsController> {
 
   // 主视图
   Widget _buildView() {
-    return <Widget>[
-      // 滚动图
-      _buildBanner(),
+    return controller.product == null
+        ? const PlaceholdWidget() // 占位图
+        : <Widget>[
+            // 滚动图
+            _buildBanner(),
 
-      // 商品标题
-      _buildTitle(),
+            // 商品标题
+            _buildTitle(),
 
-      // Tab 栏位
-      _buildTabBar(),
+            // Tab 栏位
+            _buildTabBar(),
 
-      // TabView 视图
-      _buildTabView(),
-    ].toColumn();
+            // TabView 视图
+            _buildTabView(),
+          ].toColumn();
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return GetBuilder<ProductDetailsController>(
       init: ProductDetailsController(),
@@ -89,7 +114,8 @@ class _ProductDetailsViewGetX extends GetView<ProductDetailsController> {
         return Scaffold(
           // 导航
           appBar: mainAppBarWidget(
-              titleString:LocaleKeys.gDetailTitle.tr),
+              titleString:
+                  controller.product?.name ?? LocaleKeys.gDetailTitle.tr),
           // 内容
           body: SafeArea(
             child: _buildView(),
@@ -98,5 +124,4 @@ class _ProductDetailsViewGetX extends GetView<ProductDetailsController> {
       },
     );
   }
-
 }
