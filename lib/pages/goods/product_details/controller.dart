@@ -1,4 +1,5 @@
 import 'package:beta_commerce/common/api/product.dart';
+import 'package:beta_commerce/common/components/gallery.dart';
 import 'package:beta_commerce/common/models/index.dart';
 import 'package:get/get.dart';
 
@@ -41,6 +42,15 @@ class ProductDetailsController extends GetxController {
     bannerCurrentIndex = index;
     update(["product_banner"]); // 手动刷新 Banner
   }
+
+  // 图片浏览
+  void onGalleryTap(int index, KeyValueModel item) {
+    Get.to(GalleryWidget(
+      initialIndex: index,
+      items: bannerItems.map<String>((e) => e.value!).toList(),
+    ));
+  }
+
 
   // @override
   // void onInit() {
