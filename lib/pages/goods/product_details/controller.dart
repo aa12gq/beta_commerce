@@ -1,6 +1,8 @@
+import 'dart:convert';
+
 import 'package:beta_commerce/common/api/product.dart';
 import 'package:beta_commerce/common/components/gallery.dart';
-import 'package:beta_commerce/common/models/index.dart';
+import 'package:beta_commerce/common/index.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,6 +23,11 @@ class ProductDetailsController extends GetxController with GetSingleTickerProvid
   // tab 控制器
   int tabIndex = 0;
 
+  // 颜色列表
+  List<KeyValueModel<AttributeModel>> colors = [];
+  // 选中颜色列表
+  List<String> colorKeys = [];
+
   // 拉取商品详情
   _loadProduct() async {
     // 商品详情
@@ -37,14 +44,22 @@ class ProductDetailsController extends GetxController with GetSingleTickerProvid
     }
   }
 
-  _initData() async {
-    await _loadProduct();
+  // 读取缓存
+  _loadCache() async {
+    // 颜色列表
+    var stringColors =
+    Storage().getString(Constants.storageProductsAttributesColors);
 
-    // 初始化 tab 控制器
-    tabController = TabController(length: 3, vsync: this);
-
-    update(["product_details"]);
+    colors = stringColors != ""
+        ? jsonDecode(stringColors).map<KeyValueModel<AttributeModel>>((item) {
+      var arrt = AttributeModel.fromJson(item);
+      return KeyValueModel(key: "${arrt.name}", value: arrt);
+    }).toList()
+        : [];
   }
+
+
+
 
 
   // Banner 切换事件
@@ -68,11 +83,27 @@ class ProductDetailsController extends GetxController with GetSingleTickerProvid
     update(["product_tab"]);
   }
 
+  // 颜色选中
+  void onColorTap(List<String> keys) {
+    colorKeys = keys;
+    update(["product_colors"]);
+  }
+
 
   // @override
   // void onInit() {
   //   super.onInit();
   // }
+
+  _initData() async {
+    await _loadCache();
+    await _loadProduct();
+
+    // 初始化 tab 控制器
+    tabController = TabController(length: 3, vsync: this);
+
+    update(["product_details"]);
+  }
 
   @override
   void onReady() {
