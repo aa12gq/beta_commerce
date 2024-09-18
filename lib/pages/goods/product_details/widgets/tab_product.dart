@@ -1,4 +1,5 @@
 import 'package:beta_commerce/common/components/colors_list.dart';
+import 'package:beta_commerce/common/components/tags_list.dart';
 import 'package:beta_commerce/common/extension/ex_list.dart';
 import 'package:beta_commerce/common/extension/ex_widget.dart';
 import 'package:beta_commerce/common/style/space.dart';
@@ -37,6 +38,19 @@ class TabProductView extends GetView<ProductDetailsController> {
             keys: controller.colorKeys,
             size: 33.w,
             onTap: controller.onColorTap,
+          ).paddingBottom(AppSpace.listRow * 2);
+        },
+      ),
+      // 尺寸
+      _buildTitle("Size"),
+      GetBuilder<ProductDetailsController>(
+        id: "product_sizes",
+        tag: uniqueTag,
+        builder: (_) {
+          return TagsListWidget(
+            itemList: controller.sizes,
+            keys: controller.sizeKeys,
+            onTap: controller.onSizeTap,
           ).paddingBottom(AppSpace.listRow * 2);
         },
       ),

@@ -51,6 +51,8 @@ class HomeController extends GetxController {
     newProductProductList = await ProductApi.products(ProductsReq());
     // 颜色
     var attributeColors = await ProductApi.attributes(1);
+    // 尺寸
+    var attributeSizes = await ProductApi.attributes(2);
 
     // 保存离线数据
     Storage().setJson(Constants.storageHomeBanner, bannerItems);
@@ -59,6 +61,8 @@ class HomeController extends GetxController {
     Storage().setJson(Constants.storageHomeNewSell, newProductProductList);
     Storage().setJson(Constants.storageProductsCategories, categoryItems);
     Storage().setJson(Constants.storageProductsAttributesColors, attributeColors);
+    // 尺寸定义
+    Storage().setJson(Constants.storageProductsAttributesSizes, attributeSizes);
 
     // 模拟网络延迟 1 秒
     await Future.delayed(const Duration(seconds: 1));

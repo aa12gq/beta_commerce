@@ -28,6 +28,11 @@ class ProductDetailsController extends GetxController with GetSingleTickerProvid
   // 选中颜色列表
   List<String> colorKeys = [];
 
+  // 尺寸列表
+  List<KeyValueModel<AttributeModel>> sizes = [];
+  // 选中尺寸列表
+  List<String> sizeKeys = [];
+
   // 拉取商品详情
   _loadProduct() async {
     // 商品详情
@@ -41,6 +46,20 @@ class ProductDetailsController extends GetxController with GetSingleTickerProvid
                 value: e.src ?? "",
               ))
           .toList();
+    }
+
+    // 选中值
+    if (product?.attributes != null) {
+      // 颜色
+      var colorAttr = product?.attributes?.where((e) => e.name == "Color");
+      if (colorAttr?.isNotEmpty == true) {
+        colorKeys = colorAttr?.first.options ?? [];
+      }
+      // 尺寸
+      var sizeAttr = product?.attributes?.where((e) => e.name == "Size");
+      if (sizeAttr?.isNotEmpty == true) {
+        sizeKeys = sizeAttr?.first.options ?? [];
+      }
     }
   }
 
@@ -56,10 +75,17 @@ class ProductDetailsController extends GetxController with GetSingleTickerProvid
       return KeyValueModel(key: "${arrt.name}", value: arrt);
     }).toList()
         : [];
+    // 尺寸列表
+    var stringSizes =
+    Storage().getString(Constants.storageProductsAttributesSizes);
+
+    sizes = stringSizes != ""
+        ? jsonDecode(stringSizes).map<KeyValueModel<AttributeModel>>((item) {
+      var arrt = AttributeModel.fromJson(item);
+      return KeyValueModel(key: "${arrt.name}", value: arrt);
+    }).toList()
+        : [];
   }
-
-
-
 
 
   // Banner 切换事件
@@ -87,6 +113,12 @@ class ProductDetailsController extends GetxController with GetSingleTickerProvid
   void onColorTap(List<String> keys) {
     colorKeys = keys;
     update(["product_colors"]);
+  }
+
+  // 尺寸选中
+  void onSizeTap(List<String> keys) {
+    sizeKeys = keys;
+    update(["product_sizes"]);
   }
 
 
