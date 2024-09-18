@@ -3,6 +3,9 @@ import 'package:beta_commerce/common/components/carousel.dart';
 import 'package:beta_commerce/common/components/placehold.dart';
 import 'package:beta_commerce/common/index.dart';
 import 'package:beta_commerce/common/widgets/icon_text.dart';
+import 'package:beta_commerce/pages/goods/product_details/widgets/tab_detail.dart';
+import 'package:beta_commerce/pages/goods/product_details/widgets/tab_product.dart';
+import 'package:beta_commerce/pages/goods/product_details/widgets/tab_reviews.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -107,14 +110,59 @@ class _ProductDetailsViewGetX extends GetView<ProductDetailsController> {
         .paddingAll(AppSpace.page);
   }
 
+  // Tab 栏位按钮
+  Widget _buildTabBarItem(String textString, int index) {
+    return ButtonWidget.textFilled(
+      textString,
+      onTap: () => controller.onTapBarTap(index),
+      borderRadius: 17,
+      textColor: controller.tabIndex == index
+          ? AppColors.onPrimary
+          : AppColors.secondary,
+      bgColor:
+      controller.tabIndex == index ? AppColors.primary : Colors.transparent,
+    ).tight(
+      width: 100.w,
+      height: 35.h,
+    );
+  }
+
   // Tab 栏位
   Widget _buildTabBar() {
-    return const Text("Tab 栏位");
+    return GetBuilder<ProductDetailsController>(
+      tag: tag,
+      id: "product_tab",
+      builder: (_) {
+        return <Widget>[
+          _buildTabBarItem(LocaleKeys.gDetailTabProduct.tr, 0),
+          _buildTabBarItem(LocaleKeys.gDetailTabDetails.tr, 1),
+          _buildTabBarItem(LocaleKeys.gDetailTabReviews.tr, 2),
+        ].toRow(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+        );
+      },
+    );
   }
 
   // TabView 视图
   Widget _buildTabView() {
-    return const Text("TabView 视图");
+    return Expanded(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(20.w, 0.w, 20.w, 0.w),
+        child: TabBarView(
+          controller: controller.tabController,
+          children: [
+            // 规格
+            TabProductView(uniqueTag: uniqueTag),
+            // 详情
+            TabDetailView(uniqueTag: uniqueTag),
+            // 评论
+            TabReviewsView(uniqueTag: uniqueTag),
+          ],
+        ),
+      ),
+    );
   }
 
   // 主视图
