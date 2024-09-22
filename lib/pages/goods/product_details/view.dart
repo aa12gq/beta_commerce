@@ -165,6 +165,32 @@ class _ProductDetailsViewGetX extends GetView<ProductDetailsController> {
     );
   }
 
+  // 底部按钮
+  Widget _buildButtons() {
+    return controller.product == null
+        ? const SizedBox.shrink()
+        : <Widget>[
+      // 加入购物车
+      ButtonWidget.secondary(
+        LocaleKeys.gDetailBtnAddCart.tr,
+      ).expanded(),
+
+      // 间距
+      SizedBox(width: AppSpace.iconTextLarge),
+
+      // 立刻购买
+      ButtonWidget.primary(
+        LocaleKeys.gDetailBtnBuy.tr,
+      ).expanded(),
+    ]
+        .toRow(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+    )
+        .paddingHorizontal(AppSpace.page);
+  }
+
+
   // 主视图
   Widget _buildView() {
     return controller.product == null
@@ -194,15 +220,23 @@ class _ProductDetailsViewGetX extends GetView<ProductDetailsController> {
       builder: (_) {
         return Scaffold(
           // 导航
-          appBar: mainAppBarWidget(
-              titleString:
-                  controller.product?.name ?? LocaleKeys.gDetailTitle.tr),
+          appBar: mainAppBarWidget(titleString: LocaleKeys.gDetailTitle.tr),
           // 内容
           body: SafeArea(
-            child: _buildView(),
+            child: <Widget>[
+              // 主视图
+              _buildView(),
+              // 底部按钮
+              _buildButtons().positioned(
+                bottom: 10,
+                left: 0,
+                right: 0,
+              ),
+            ].toStack(),
           ),
         );
       },
     );
   }
+
 }
