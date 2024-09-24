@@ -48,6 +48,24 @@ class ProductDetailsController extends GetxController with GetSingleTickerProvid
   // 评论 页尺寸
   final int _reviewsLimit = 20;
 
+  // 主界面 刷新控制器
+  final RefreshController mainRefreshController = RefreshController(
+    initialRefresh: true,
+  );
+
+  // main 下拉刷新
+  void onMainRefresh() async {
+    try {
+      // 拉取商品详情
+      await _loadProduct();
+      // 刷新数据
+      mainRefreshController.refreshCompleted();
+    } catch (error) {
+      // 刷新失败
+      mainRefreshController.refreshFailed();
+    }
+    update(["product_details"]);
+  }
 
   // 拉取商品详情
   _loadProduct() async {
@@ -236,7 +254,6 @@ class ProductDetailsController extends GetxController with GetSingleTickerProvid
 
   _initData() async {
     await _loadCache();
-    await _loadProduct();
 
     // 初始化 tab 控制器
     tabController = TabController(length: 3, vsync: this);
@@ -258,9 +275,11 @@ class ProductDetailsController extends GetxController with GetSingleTickerProvid
   @override
   void onClose() {
     super.onClose();
+    // 销毁 tab 控制器
     tabController.dispose();
-
-    // 释放 评论下拉控制器
+    // 销毁 主下拉控制器
+    mainRefreshController.dispose();
+    // 销毁 评论下拉控制器
     reviewsRefreshController.dispose();
   }
 }

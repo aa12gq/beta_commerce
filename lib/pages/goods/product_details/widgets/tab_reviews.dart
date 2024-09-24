@@ -1,4 +1,5 @@
 import 'package:beta_commerce/common/components/refresher.dart';
+import 'package:beta_commerce/common/components/stars_list.dart';
 import 'package:beta_commerce/common/index.dart';
 import 'package:beta_commerce/common/utils/convert.dart';
 import 'package:beta_commerce/common/widgets/image.dart';
@@ -29,6 +30,11 @@ class TabReviewsView extends GetView<ProductDetailsController> {
 
       // 星、名称、评论、图
       <Widget>[
+        // 星
+        StarsListWidget(
+          value: item.rating ?? 0,
+          size: 12,
+        ),
         // 名称
         TextWidget.title3(
           item.reviewer ?? "",
